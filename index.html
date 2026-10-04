@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receipt Generator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+    <style>
+
+    .navbar{
+        background-color: #003cff;
+    }
+
+    .navbar .navbar-brand {
+    color: #ffffff;
+}
+
+
+    .card {
+        background-color: #002397;
+    }
+
+    h1 {
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    h4 {
+        color: #ffffff;
+        font-weight: 667;
+    }
+
+    .form-check {
+        padding: 8px 13px 9px 30px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        background-color: #ffffff;
+      
+    }
+
+    .form-check:hover {
+        background-color: #b4eeff; /
+    }
+
+    .form-check-input:checked {
+        background-color: #1900ff;
+    }
+
+    .form-check-label {
+        font-weight: 667;
+        color: #000e5f;
+    }
+
+    #show p, #show h5 {
+    color: #ffffff;
+}
+
+
+</style>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">River's AFFORDABLE yum yums 🤑</a>
+
+            <div>
+                <a class="btn btn-outline-light btn-sm" href="index.html">
+                    Receipt Generator
+                </a>
+
+                <a class="btn btn-outline-light btn-sm" href="sku.html">
+                    SKU Generator
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h1 class="text-center mb-4">Receipt Generator</h1>
+
+                <h4>Menu 😛</h4>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="item1" value="30">
+                    <label class="form-check-label">
+                        Lugaw - ₱30
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="item2" value="60">
+                    <label class="form-check-label">
+                        Sinigang - ₱60
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="item3" value="100">
+                    <label class="form-check-label">
+                        Sisig w/ garlic rice - ₱100
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="item4" value="50">
+                    <label class="form-check-label">
+                        kwekkwek - ₱50
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="item5" value="20">
+                    <label class="form-check-label">
+                        extra rice - ₱20
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" py-click="create_order">
+                    Generate Receipt
+                </button>
+
+                <div id="show" class="mt-4"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="py">
+
+from pyscript import document
+
+def create_order(e):
+
+    prod1 = document.getElementById("item1")
+    prod2 = document.getElementById("item2")
+    prod3 = document.getElementById("item3")
+    prod4 = document.getElementById("item4")
+    prod5 = document.getElementById("item5")
+
+    subtotal = (
+        float(prod1.value) * prod1.checked +
+        float(prod2.value) * prod2.checked +
+        float(prod3.value) * prod3.checked +
+        float(prod4.value) * prod4.checked +
+        float(prod5.value) * prod5.checked
+    )
+
+    vat = subtotal * 0.12
+    total = subtotal + vat
+
+    receipt = f"""
+    <div>
+        <h4>YOUR RECEIPT</h4>
+        <hr>
+        <p>Subtotal: ₱{subtotal:.2f}</p>
+        <p>VAT (12%): ₱{vat:.2f}</p>
+        <h5>Total Amount: ₱{total:.2f}</h5>
+    </div>
+    """
+
+    document.getElementById("show").innerHTML = receipt
+
+    </script>
+
+</body>
+</html>
+
